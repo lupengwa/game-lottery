@@ -3,54 +3,111 @@ import {
   Box,
   Button,
   Grid,
-  Text,
-  theme, Heading,
+  SliderTrack, SliderFilledTrack, SliderThumb,
+  theme, Heading, Center, Stack, Spacer, Slider, SliderMark,
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import AnimatedNumber from "react-animated-numbers";
 
 export const App = () => {
   const [nums, setNums] = useState<number[]>([]);
-  const [result, setResult] = useState('Lottery Ready');
+  const [result, setResult] = useState('诗班尾牙抽奖');
+  const [pickNum, setPickNum] = useState(0);
+  const [numPeople, setNumPeople] = useState(25);
   const spin = () => {
     nums.forEach(n => console.log(n));
     let max = nums.length;
     let min = 0;
     let randIdx = Math.floor(Math.random()*(max-min)+ min);
-    let content =  String(nums[randIdx]);
     let updatedNums = nums.filter(n => n !== nums[randIdx])
     if(nums.length === 0) {
-      content = 'Lottery Ends';
+       setResult('抽奖结束');
+    } else {
+      setResult('');
+      setPickNum(nums[randIdx]);
     }
     setNums(updatedNums);
-    setResult(content);
   }
-  const reset = () => {
+  const reset = (numPeople?:number) => {
     let nums: number[] = [];
-    const end = 5;
+    let end = 25;
+    if(numPeople !== undefined) {
+      end = numPeople;
+      setNumPeople(numPeople);
+    }
     for(let i = 1; i <= end; i++) {
       nums.push(i);
     }
     setNums(nums);
-    setResult('Lottery Ready')
+    setResult('诗班尾牙抽奖');
+    setPickNum(0);
+  }
+
+  const defaultNumPeople = 25;
+
+  const labelStyles = {
+      mt: '2',
+      ml: '-2.5',
+      fontSize: 'lg',
   }
 
   useEffect(() => {
     reset();
   },[]);
-
+  const formatValue = (value:number) => value.toFixed(0);
   return (
       <ChakraProvider theme={theme}>
         <Box textAlign="center" fontSize="xl">
           <Grid minH="100vh" p={3}>
-            <ColorModeSwitcher justifySelf="flex-end"/>
-            <Box>
-               <Heading as='h1' size='4xl' noOfLines={1}> {result} </Heading>
+            <Stack direction={['row']} align='right' mt='15px'>
+              <Slider
+                  aria-label='slider-ex-6'
+                  flex='0.08'
+                  focusThumbOnChange={true}
+                  defaultValue={25}
+                  max={99}
+                  onChange= {(val) => reset(val)}
+              >
+                <SliderMark
+                    value={numPeople}
+                    textAlign='center'
+                    bg='blue.500'
+                    color='white'
+                    mt='-10'
+                    ml='-4'
+                    w='8'
+                >
+                 {numPeople}
+                </SliderMark>
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb fontSize='sm' boxSize='32px' />
+              </Slider>
+              <Spacer />
+              <Button onClick={() => reset()}> Reset </Button>
+              <ColorModeSwitcher justifySelf="flex-end"/>
+            </Stack>
+            <Box alignItems='center'>
+               <Heading as='h1' size='4xl' noOfLines={2} colorScheme="twitter"> {result} </Heading>
             </Box>
+            <Center>
+              <AnimatedNumber
+                  animateToNumber={pickNum}
+                  fontStyle={{
+                    fontFamily: "'Helvetica Neue', Arial, sans-serif", // Use a modern, clean font
+                    color: '#D7000F', // A pleasant red
+                    fontSize: 400, // Large font size for emphasis
+                    fontWeight: 'bold', // Make it bold
+                  }}
+                  transitions={(index) => ({
+                    type: "spring",
+                    duration: index + 3,
+                  })}></AnimatedNumber>
+            </Center>
             <Box alignItems='center'>
               <Button onClick={spin}> Spin </Button>
-              <Button onClick={reset}> Reset </Button>
             </Box>
           </Grid>
         </Box>
