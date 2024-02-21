@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/game-lottery/static/js/main.7d747385.js",
+    "main.js": "/game-lottery/static/js/main.e5d4f217.js",
     "static/js/453.4d358c80.chunk.js": "/game-lottery/static/js/453.4d358c80.chunk.js",
     "index.html": "/game-lottery/index.html",
-    "main.7d747385.js.map": "/game-lottery/static/js/main.7d747385.js.map",
+    "main.e5d4f217.js.map": "/game-lottery/static/js/main.e5d4f217.js.map",
     "453.4d358c80.chunk.js.map": "/game-lottery/static/js/453.4d358c80.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.7d747385.js"
+    "static/js/main.e5d4f217.js"
   ]
 }
