@@ -4,7 +4,7 @@ import {
   Button,
   Grid,
   SliderTrack, SliderFilledTrack, SliderThumb,
-  theme, Heading, Center, Stack, Spacer, Slider, SliderMark,
+  theme, Heading, Center, Stack, Spacer, Slider, SliderMark,Image
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import React, {useEffect, useState} from "react";
@@ -58,7 +58,8 @@ export const App = () => {
   const formatValue = (value:number) => value.toFixed(0);
   return (
       <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl">
+        <Box textAlign="center" fontSize="xl" bgImage="url('./game-lottery/bg.jpg')"  bgPosition="center"
+             bgSize="cover">
           <Grid minH="100vh" p={3}>
             <Stack direction={['row']} align='right' mt='15px'>
               <Slider
@@ -97,8 +98,8 @@ export const App = () => {
                   animateToNumber={pickNum}
                   fontStyle={{
                     fontFamily: "'Helvetica Neue', Arial, sans-serif", // Use a modern, clean font
-                    color: '#D7000F', // A pleasant red
-                    fontSize: 400, // Large font size for emphasis
+                    color: 'white', // A pleasant red
+                    fontSize: 450, // Large font size for emphasis
                     fontWeight: 'bold', // Make it bold
                   }}
                   transitions={(index) => ({
