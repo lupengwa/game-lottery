@@ -34,12 +34,12 @@ export const App = () => {
     let end = 25;
     if(numPeople !== undefined) {
       end = numPeople;
-      setNumPeople(numPeople);
     }
     for(let i = 1; i <= end; i++) {
       nums.push(i);
     }
     setNums(nums);
+    setNumPeople(end);
     setResult('诗班尾牙抽奖');
     setPickNum(0);
   }
@@ -58,7 +58,7 @@ export const App = () => {
   const formatValue = (value:number) => value.toFixed(0);
   return (
       <ChakraProvider theme={theme}>
-        <Box textAlign="center" fontSize="xl" bgImage="url('./game-lottery/bg.jpg')"  bgPosition="center"
+        <Box textAlign="center" fontSize="xl" bgImage="url('/game-lottery/image/bg.jpg')"  bgPosition="center"
              bgSize="cover">
           <Grid minH="100vh" p={3}>
             <Stack direction={['row']} align='right' mt='15px'>
@@ -66,7 +66,7 @@ export const App = () => {
                   aria-label='slider-ex-6'
                   flex='0.08'
                   focusThumbOnChange={true}
-                  defaultValue={25}
+                  value={numPeople}
                   max={99}
                   onChange= {(val) => reset(val)}
               >
@@ -87,11 +87,11 @@ export const App = () => {
                 <SliderThumb fontSize='sm' boxSize='32px' />
               </Slider>
               <Spacer />
-              <Button onClick={() => reset()}> Reset </Button>
+              <Button onClick={() => reset()}> Restart </Button>
               <ColorModeSwitcher justifySelf="flex-end"/>
             </Stack>
             <Box alignItems='center'>
-               <Heading as='h1' size='4xl' noOfLines={2} colorScheme="twitter"> {result} </Heading>
+               <Heading as='h1' size='4xl' noOfLines={2} color="#FFD700"> {result} </Heading>
             </Box>
             <Center>
               <AnimatedNumber
@@ -108,7 +108,7 @@ export const App = () => {
                   })}></AnimatedNumber>
             </Center>
             <Box alignItems='center'>
-              <Button onClick={spin}> Spin </Button>
+              <Button size='lg' onClick={spin}> Spin </Button>
             </Box>
           </Grid>
         </Box>
